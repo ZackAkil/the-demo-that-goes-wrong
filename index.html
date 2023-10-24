@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Perrrfect Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+    
+    
+    <style>
+        body{font-family: 'Gloria Hallelujah', cursive;
+            text-align: center;
+        }
+        img{
+            height:40vh;
+        }
+        
+        .green{
+            color:#00c900;
+        }
+        
+        .blue{
+            color:#0000c9;
+        }
+        
+        #blue-screen{
+            position:absolute;
+            height:100%;
+            width:100%;
+            background-color: blue;
+            color:white;
+            top:0;
+            left:0;
+            text-align:left;
+            font-family: monospace;
+            padding:1em;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1>My Perrrfect Demo</h1>
+    <p>Use AI to predict on images.</p>
+  <button id="load-button">Upload Image</button>
+    <br><br>
+  <div id="loading-message" hidden>Loading...</div>
+    
+    <div id="image-container" hidden>
+      <img src="cat.png">
+        <br><br>
+      <button id="predict-button">Predict using AI</button>
+        
+        
+     <div id="loading-message-2" hidden>Loading...</div>
+
+    
+    <div id="prediction-container" hidden>
+        <h2 id="correct">I'm <span class="green">99%</span> sure this is a CAT 🐱</h2>
+        <h2 id="wrong">I'm <span class="blue">51%</span> sure this is a DRAGON 🔥🐉</h2>
+    </div>
+    </div>
+    
+    <div id="blue-screen" hidden>
+        <h1>Uh oh...</h1>
+        <h2>Very unexpected error.</h2>
+    </div>
+    
+ 
+
+  <script>
+    var UPLOAD_TIME = 3000
+    var PREDICTION_TIME = 5000
+    var PREDICTION_CORRECT = true
+    var BLUE_SCREEN = false
+      
+    const loadButton = document.getElementById("load-button");
+    const loadingMessage = document.getElementById("loading-message");
+      
+    const imageContainer = document.getElementById("image-container");
+      
+    const predictButton = document.getElementById("predict-button");
+      
+    const loadingMessage2 = document.getElementById("loading-message-2");
+    const predictionContainer = document.getElementById("prediction-container");
+    const correctPrediction = document.getElementById("correct");
+    const wrongPrediction = document.getElementById("wrong");
+      
+    const blueScreen = document.getElementById("blue-screen");
+      
+      
+    function hide(el){
+        el.style.display = "none";
+    }
+      
+    function show(el){
+        el.style.display = "block";
+    }
+
+
+    loadButton.addEventListener("click", () => {
+      show(loadingMessage)
+      hide(imageContainer)
+      hide(predictionContainer)
+
+      setTimeout(() => {
+        hide(loadingMessage)
+        show(imageContainer)
+      }, UPLOAD_TIME);
+    });
+      
+      
+    predictButton.addEventListener("click", () => {
+      show(loadingMessage2)
+      hide(predictionContainer)
+      hide(correctPrediction)
+      hide(wrongPrediction)
+        
+
+      setTimeout(() => {
+        hide(loadingMessage2)
+        show(predictionContainer)
+        
+        if(BLUE_SCREEN){
+          show(blueScreen)
+        }
+          
+          
+        if (PREDICTION_CORRECT){
+            show(correctPrediction)
+        }else{
+            show(wrongPrediction)
+        }
+          
+      }, PREDICTION_TIME);
+    });
+      
+const urlParams = new URLSearchParams(window.location.search);
+      
+UPLOAD_TIME = urlParams.get('uploadTime') || UPLOAD_TIME
+console.log('uploadTime:', UPLOAD_TIME)
+      
+PREDICTION_TIME = urlParams.get('predictionTime') || PREDICTION_TIME
+console.log('predictionTime:', PREDICTION_TIME)
+      
+      
+predictionCorrectFlag = urlParams.get('predictionCorrect') || 'true'
+PREDICTION_CORRECT = predictionCorrectFlag == 'true'
+console.log('predictionCorrect:', PREDICTION_CORRECT, typeof(PREDICTION_CORRECT))
+      
+
+blueScreenFlag = urlParams.get('oops') || 'false'
+BLUE_SCREEN = blueScreenFlag == 'true'
+console.log('oops:', BLUE_SCREEN, typeof(BLUE_SCREEN))
+      
+
+randomFlag = urlParams.get('random') || 'false'
+RANDOM = randomFlag == 'true'
+console.log('random:', RANDOM, typeof(RANDOM))
+      
+if (RANDOM){
+    console.log('generating random demo scenario')
+    
+    // random number between 1 and 10
+    const randInt = Math.floor(Math.random() * 6);
+    
+    switch(randInt){
+        case 0 :
+            UPLOAD_TIME = 2000
+            PREDICTION_TIME = 15000
+            PREDICTION_CORRECT = true
+            BLUE_SCREEN = false
+            console.log('badish 1')
+            break;
+        case 1 :
+            UPLOAD_TIME = 2000
+            PREDICTION_TIME = 10000
+            PREDICTION_CORRECT = false
+            BLUE_SCREEN = false
+            console.log('badish 2')
+            break;
+        case 2 :
+            UPLOAD_TIME = 8000
+            PREDICTION_TIME = 15000
+            PREDICTION_CORRECT = true
+            BLUE_SCREEN = true
+            console.log('terrible')
+            break;
+        default :
+            UPLOAD_TIME = 3000
+            PREDICTION_TIME = 4000
+            PREDICTION_CORRECT = true
+            BLUE_SCREEN = false
+            console.log('safe')
+                   
+    }
+    
+}
+      
+  </script>
+</body>
+</html>
