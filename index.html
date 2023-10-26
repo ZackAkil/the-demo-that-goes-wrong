@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Perrrfect Demo</title>
+  <title>My Purrrfect Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
@@ -39,7 +40,7 @@
     </style>
 </head>
 <body>
-    <h1>My Perrrfect Demo</h1>
+    <h1>My Purrrfect Demo</h1>
     <p>Use AI to predict on images.</p>
   <button id="load-button">Upload Image</button>
     <br><br>
@@ -68,8 +69,8 @@
  
 
   <script>
-    var UPLOAD_TIME = 3000
-    var PREDICTION_TIME = 5000
+    var UPLOAD_TIME = 1500
+    var PREDICTION_TIME = 3000
     var PREDICTION_CORRECT = true
     var BLUE_SCREEN = false
       
@@ -154,14 +155,18 @@ console.log('blueScreen:', BLUE_SCREEN, typeof(BLUE_SCREEN))
       
 
 randomFlag = urlParams.get('random') || 'false'
-RANDOM = randomFlag == 'true'
+const RANDOM = randomFlag == 'true'
 console.log('random:', RANDOM, typeof(RANDOM))
+      
+randomBadFlag = urlParams.get('randomBad') || 'false'
+const RANDOM_BAD = randomBadFlag == 'true'
+console.log('randomBad:', RANDOM_BAD, typeof(RANDOM_BAD))
       
 if (RANDOM){
     console.log('generating random demo scenario')
     
     // random number between 1 and 10
-    const randInt = Math.floor(Math.random() * 6);
+    const randInt = Math.floor(Math.random() * 5);
     
     switch(randInt){
         case 0 :
@@ -190,8 +195,46 @@ if (RANDOM){
             PREDICTION_TIME = 4000
             PREDICTION_CORRECT = true
             BLUE_SCREEN = false
-            console.log('safe')
-                   
+            console.log('safe')             
+    }
+    
+}
+      
+      
+if (RANDOM_BAD){
+    console.log('generating random bad demo scenario')
+    
+    // random number between 1 and 10
+    const randInt = Math.floor(Math.random() * 5);
+    
+    switch(randInt){
+        case 0 :
+            UPLOAD_TIME = 2000
+            PREDICTION_TIME = 25000
+            PREDICTION_CORRECT = true
+            BLUE_SCREEN = false
+            console.log('badish 1')
+            break;
+        case 1 :
+            UPLOAD_TIME = 12000
+            PREDICTION_TIME = 10000
+            PREDICTION_CORRECT = false
+            BLUE_SCREEN = false
+            console.log('badish 2')
+            break;
+        case 2 :
+            UPLOAD_TIME = 8000
+            PREDICTION_TIME = 15000
+            PREDICTION_CORRECT = true
+            BLUE_SCREEN = true
+            console.log('terrible')
+            break;
+        default :
+            UPLOAD_TIME = 3000
+            PREDICTION_TIME = 24000
+            PREDICTION_CORRECT = false
+            BLUE_SCREEN = false
+            console.log('badish 3')             
     }
     
 }
